@@ -1,6 +1,8 @@
 console.log("Hello world");
 //Download file system modules
 const fs = require ("fs"); 
+
+//To write to the file use this method
 fs.writeFileSync("DEmoText.txt", "This is a new line from index");
 
 //Filepath module

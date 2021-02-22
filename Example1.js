@@ -3,7 +3,8 @@ const http = require("http");
 const express = require("express");
 const sql = require("mssql/msnodesqlv8");
 const { connect } = require("http2");
-var myconnection = require("./Connection")();//Getting the connection as a function
+//Getting the connection as a function to connect with the database
+var myconnection = require("./Connection")();
 var bodyParser = require("body-parser"); // Required for Parsin Json body in post request
 
 //Create an express App
@@ -17,19 +18,23 @@ var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
+//Get function to read the about page
+
 app.get("/about", function (req, res) {
     console.log("This is about page");
+    //res.send is to share the data on the Web Portal
     res.send("This is the app response");
 })
 
 app.get("/data", function (req, res) {
     //console.log("This is about page");
     //res.send("This is the app response");
-
-    
+//To read the data from the database    
     myconnection.connect().then(function(){
 
         var myquery = "select * from Students";
+
+        //Create a request to connect the database
         var myrequest = new sql.Request(myconnection);
         myrequest.query(myquery).then(function(recordset){
 
